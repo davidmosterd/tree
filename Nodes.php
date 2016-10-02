@@ -25,14 +25,29 @@ class Nodes {
 	}
 
 	public function build() {
-		// todo: make first call to self::iterate here
+		return $this->iterate( $this->nodes, 0 );
 	}
 
 	/**
 	 * Recursive function to iterate over the nodes
 	 */
-	protected function iterate( $nodes, $parent ) {
+	protected function iterate( array $nodes, $parent = 0 ) {
+		$tree = array();
 
+		$i = 0;
+
+		foreach ( $nodes as $v ) {
+			if ( $v->parent == $parent ) {
+				$tree[ $i ] = $v;
+				$tree[ $i ]->sibblings = $this->iterate( $nodes, $v->id, $v->parent );
+
+				$i++;
+			}
+		}
+
+		return $tree;
 	}
+
+
 
 }

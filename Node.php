@@ -15,6 +15,16 @@ class Node {
 		$this->parent = $parent;
 	}
 
+	public function __get( $key ) {
+		$valid = [ 'id', 'parent' ];
+
+		if ( ! in_array( $key, $valid ) ) {
+			return false;
+		}
+
+		return $this->$key;
+	}
+
 	public function setName( $name ) {
 		$this->name = $name;
 
